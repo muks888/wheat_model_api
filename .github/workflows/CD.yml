@@ -13,10 +13,8 @@ jobs:
 
     steps:
       - name: Pull Docker Image
-        run: sudo docker rmi $(docker images -q)
+        env: 
+          DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
+        run: sudo docker image rm rmuks/wheat_model_api:v11
 
-      - name: Pull Docker1 Image
-        run: sudo docker stop $(docker ps -a -q)
 
-      - name: Pull Docke2 Image
-        run: docker rm $(docker ps -a -q)
