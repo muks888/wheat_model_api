@@ -1,0 +1,22 @@
+name: CD Pipeline
+
+# Only trigger, when the build workflow succeeded i.e. CI Pipeline
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull Docker Image
+        run: sudo docker rmi $(docker images -q)
+
+      - name: Pull Docker1 Image
+        run: sudo docker stop $(docker ps -a -q)
+
+      - name: Pull Docke2 Image
+        run: docker rm $(docker ps -a -q)
