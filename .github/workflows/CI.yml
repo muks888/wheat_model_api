@@ -1,0 +1,73 @@
+name: CI Pipeline
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up  Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: pip install -r requirements/requirements.txt
+    - name: Train and save pipeline
+      run: python bikeshare_model/train_pipeline.py
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-trained-pipeline
+        path: bikeshare_model/trained_models/*.pkl
+        retention-days: 1
+
+  test:
+    needs: train
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-trained-pipeline
+        path: bikeshare_model/trained_models
+    - name: Install dependencies
+      run: pip install -r requirements/test_requirements.txt
+    - name: Test with pytest
+      run: pytest
+
+  build:
+    needs: [train, test]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-trained-pipeline
+        path: bikeshare_model/trained_models
+    - name: Install dependencies
+      run: pip install --upgrade build
+    - name: Build package
+      run: python -m build
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-build-package
+        path: dist/*.whl
+        retention-days: 1
+
