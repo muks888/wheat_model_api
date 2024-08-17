@@ -16,7 +16,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
     - name: Train and save pipeline
-      run: python wheat_model_api/Model.py
+      run: python Model.py
     - uses: actions/upload-artifact@v2
       with:
        name: my-trained-pipeline
