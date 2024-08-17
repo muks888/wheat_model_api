@@ -1,4 +1,4 @@
-name: Push a Docker Image 
+name: Push  a Docker Image 
 on:
  push:
  branches:
