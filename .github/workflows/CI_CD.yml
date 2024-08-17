@@ -89,7 +89,7 @@ jobs:
  - uses: actions/download-artifact@v2
  with:
  name: my-build-package
- path: wheat_model_api_api
+ path: wheat_model_api
  - name: Login to Docker hub
  env:
  DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
@@ -98,11 +98,11 @@ jobs:
  - name: Build the Docker image for Fastapi app
  env:
  DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
- run: docker build . -f Dockerfile -t $DOCKER_USER/bikeshare_fast_api:latest
+ run: docker build . -f Dockerfile -t $DOCKER_USER/wheat_model_api:v11
  - name: Push the Docker Image
  env:
  DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
- run: docker push $DOCKER_USER/bikeshare_fast_api
+ run: docker push $DOCKER_USER/wheat_model_api
  - name: Logout to Docker hub
  run: docker logout
  deploy:
@@ -111,13 +111,13 @@ jobs:
  - name: Pull Docker Image
  env: 
  DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
- run: sudo docker pull $DOCKER_USER/bikeshare_fast_api:latest
+ run: sudo docker pull $DOCKER_USER/wheat_model_api:latest
  
  - name: Delete Old Docker Container
- run: sudo docker rm -f bikeshare_fast_api-container || true
+ run: sudo docker rm -f wheat_model_api-container || true
  
  - name: Run Docker Container
  env: 
  DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
- run: sudo docker run -it -d -p 8001:8001 --name bikeshare_fast_api-container 
-$DOCKER_USER/bikeshare_fast_api:lates
+ run: sudo docker run -it -d -p 8001:8001 --name wheat_model_api-container 
+$DOCKER_USER/wheat_model_api:v11
