@@ -20,7 +20,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
        name: my-trained-pipeline
-       path: wheat_model_api/trained_models/*.pkl
+       path: wheat_model_api/*.pkl
        retention-days: 1
   test:
    needs: train
@@ -34,7 +34,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: my-trained-pipeline
-        path: wheat_model_api/trained_models
+        path: wheat_model_api
     - name: Install dependencies
       run: pip install -r requirements/test_requirements.txt
     - name: Test with pytest
