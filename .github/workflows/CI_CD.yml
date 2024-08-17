@@ -106,19 +106,20 @@ jobs:
    - name: Logout to Docker hub
      run: docker logout
   deploy:
-   runs-on: self-hosted
-   steps:
-   - name: Pull Docker Image
-     env: 
-      DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
-     run: sudo docker pull $DOCKER_USER/wheat_model_api:latest
+    needs: [push-image]
+    runs-on: self-hosted
+    steps:
+    - name: Pull Docker Image
+      env: 
+       DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
+      run: sudo docker pull $DOCKER_USER/wheat_model_api:latest
  
-   - name: Delete Old Docker Container
-     run: sudo docker rm -f wheat_model_api-container || true
+    - name: Delete Old Docker Container
+      run: sudo docker rm -f wheat_model_api-container || true
  
-   - name: Run Docker Container
-     env: 
-      DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
-     run: sudo docker run -it -d -p 8005:8005 --name wheat_model_api-container $DOCKER_USER/wheat_model_api:v11
+    - name: Run Docker Container
+      env: 
+       DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
+      run: sudo docker run -it -d -p 8005:8005 --name wheat_model_api-container $DOCKER_USER/wheat_model_api:v11
     
   
