@@ -14,7 +14,7 @@ jobs:
       with:
        python-version: '3.10'
     - name: Install dependencies
-      run: pip install -r requirements/requirements.txt
+      run: pip install -r requirements.txt
     - name: Train and save pipeline
       run: python wheat_model_api/Model.py
     - uses: actions/upload-artifact@v2
