@@ -36,7 +36,7 @@ jobs:
         name: my-trained-pipeline
         path: wheat_model_api
     - name: Install dependencies
-      run: pip install -r requirements/test_requirements.txt
+      run: pip install -r requirements.txt
     - name: Test with pytest
       run: pytest
   lint:
