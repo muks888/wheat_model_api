@@ -55,10 +55,7 @@ jobs:
    - name: Repo Checkout
      uses: actions/checkout@v2
    
-   - name: Login to Docker hub
-   
-     
-     run : sudo docker login -u rmuks -p Redme132$
+
    - name: Build the Docker image for Fastapi app
      env:
       DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
