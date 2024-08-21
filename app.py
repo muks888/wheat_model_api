@@ -9,7 +9,7 @@ model = WheatModel()
 
 @app.get('/')
 def home():
-    return{"Hello":"Welcome to the RMS first ML app mod 21:57 Aug 21."}
+    return{"Hello":"Welcome to the RMS first ML app mod 22:18 Aug 21."}
 # 3. Expose the prediction functionality, make a prediction from the passed
 #    JSON data and return the predicted flower species with the confidence
 @app.post('/predict')
