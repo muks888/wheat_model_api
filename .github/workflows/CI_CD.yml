@@ -72,7 +72,7 @@ jobs:
     steps:
     - name: Pull Docker Image
       env: 
-       DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
+       DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
       run: sudo docker pull rmuks/wheat_model_api:latest
  
     - name: Delete Old Docker Container
@@ -80,7 +80,7 @@ jobs:
  
     - name: Run Docker Container
       env: 
-       DOCKER_USER: ${{ secrets.DOCKER_USER_NAME }}
+       DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
       run: sudo docker run -it -d -p 8005:8005 --name wheat_model_api-container rmuks/wheat_model_api:latest
     
   
