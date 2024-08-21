@@ -83,6 +83,6 @@ jobs:
     - name: Run Docker Container
       env: 
        DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
-      run: sudo docker run -it -d -p 8005:8005 --name wheat_model_api-container $DOCKER_USER/wheat_model_api:latest
+      run: sudo docker run -it -d -p 8007:8005 --name wheat_model_api-container $DOCKER_USER/wheat_model_api:latest
     
   
