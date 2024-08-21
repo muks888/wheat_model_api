@@ -73,7 +73,7 @@ jobs:
     - name: Pull Docker Image
       env: 
        DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
-      run: sudo docker pull rmuks/wheat_model_api:latest
+      run: sudo docker pull $DOCKER_USER/wheat_model_api:latest
 
 
       
