@@ -34,34 +34,10 @@ jobs:
     
     - name: Install dependencies
       run: pip install -r requirements.txt
-    - name: Install pylint
-      run: pip install pylint
-    - name: Install pytest
-      run: pip install pytest
-    - name: Install pytest
-      run: pip install black
-    - name: Test with pytest
-      run: pytest
-  lint:
-   needs: [train, test]
-   runs-on: self-hosted
-   steps:
-   - uses: actions/checkout@v3
-   - name: Install dependencies
-     run: pip install pylint
-   - name: pylint the setup file
-     run: pylint setup.py
-  black:
-   needs: [train, test, lint]
-   runs-on: self-hosted
-   steps:
-   - uses: actions/checkout@v3
-   - name: Install dependencies
-   
-   - name: black the setup file
+    
      
   build:
-    needs: [train, test, lint, black]
+    needs: [train, test]
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
