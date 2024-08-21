@@ -54,10 +54,7 @@ jobs:
    steps:
    - name: Repo Checkout
      uses: actions/checkout@v2
-   - uses: actions/download-artifact@v2
-     with:
-      name: my-build-package
-      path: wheat_model_api
+   
    - name: Login to Docker hub
      env:
       DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
